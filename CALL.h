@@ -15,7 +15,7 @@ typedef ULONG64(__fastcall* _Func_Call)(
 
 ULONG64 EA8_CALL(ULONGLONG ADDR__, ULONGLONG RCX__ = 0, ULONGLONG RDX__ = 0, ULONGLONG R8__ = 0, ULONGLONG R9__ = 0, ULONGLONG R10__ = 0, ULONGLONG R11__ = 0, ULONGLONG R12__ = 0, ULONGLONG R13__ = 0, ULONGLONG R14__ = 0, ULONGLONG R15__ = 0);
 
-void 神话公告(std::wstring 内容, int 类型 = NULL);
+void 公告(std::wstring 内容, int 类型 = NULL);
 
 void 透明call();
 
@@ -90,3 +90,7 @@ void 进入角色Call(__int32 角色位置);
 void 角色翻页Call(__int32 角色页位);
 
 void 选择角色Call(__int32 角色位置);
+
+void Buff_Call(int buff标识);
+
+int 次数Call(int 地图编号);

@@ -25,6 +25,16 @@ namespace 基址
 	constexpr auto 城镇坐标X = 0x14D134888;    // 5588076680   创新中心获取  
 	constexpr auto 城镇坐标Y = 0x14D13488C;    // 5588076684   创新中心获取   
 	constexpr auto 界面_Rcx = 0x14C3FE910;    // 5574224144   创新中心获取  
+	constexpr auto 全局钩子 = 0x1450E5E95;    // 5453536917   创新中心获取
+	constexpr auto 最大疲劳 = 0x14CD36A9C;    // 5583891100   创新中心获取  
+	constexpr auto 当前疲劳 = 0x14CD36B0C;    // 5583891212   创新中心获取 
+	constexpr auto 特效缓冲CALL = 0x1401DF850;    // 5370673232   创新中心获取  
+	constexpr auto 特效释放CALL = 0x1442606E0;    // 5438310112   创新中心获取  
+	constexpr auto BUFF参数2 = 0x144267020;    // 5438337056   创新中心获取  
+	constexpr auto BUFF参数1 = 0x14425B560;    // 5438289248   创新中心获取  
+	constexpr auto 特效基址 = 0x14C3F0378;    // 5574165368   创新中心获取  
+	constexpr auto 次数CALL = 0x1422536E0; //7度_获取
+	constexpr auto 次数_RCX = 0x14C2451F0; //7度_获取
 	constexpr auto 添加CALL = 0x145A456C0;    //45 8B 46 08 8B D6 44 8B C8 48 8B CD E8
 	constexpr auto 确认CALL = 0x145A45440;    //45 8B CE 45 8B C4 41 8B D7 48 8B CF E8
 	constexpr auto 门票判断 = 0x14C3F7308;    //45 33 C9 BA 1D 07 00 00 48 83 C4 28

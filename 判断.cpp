@@ -97,3 +97,14 @@ bool 文件是否存在(const wchar_t* 文件名)
 	DWORD fileAttributes = GetFileAttributesW(文件名);
 	return (fileAttributes != INVALID_FILE_ATTRIBUTES && !(fileAttributes & FILE_ATTRIBUTE_DIRECTORY));
 }
+
+int 取角色等级()
+{
+	return (int)读长整数(基址::角色等级);
+}
+
+int 剩余疲劳()
+{
+	return 读整数型(基址::最大疲劳) - 读整数型(基址::当前疲劳);
+}
+

@@ -63,21 +63,23 @@ void 收包事件()
 			Pack.领主坐标.x = *(char*)(包指针 + 24);
 			Pack.领主坐标.y = *(char*)(包指针 + 25);
 			Pack.地图名称 = (wchar_t*)*(__int64*)(地图Call(Pack.地图编号) + 基址::地图名称);
+			公告(L"地图编号：" + to_wstring(Pack.地图编号) + L"  地图难度:  " + to_wstring(Pack.地图难度));
+			公告(L"领主坐标.x：" + to_wstring(Pack.领主坐标.x) + L"  领主坐标.y:  " + to_wstring(Pack.领主坐标.y));
 			break;
 		case 29:
 			Pack.当前坐标.x = *(char*)(包指针 + 16);
 			Pack.当前坐标.y = *(char*)(包指针 + 17);
+			公告(L"当前坐标.x：" + to_wstring(Pack.当前坐标.x) + L"  当前坐标.y:  " + to_wstring(Pack.当前坐标.y));
 			break;
 		case 38:
 			if (包长度 != 27)
 			{
-				/*
-				Pack.怪物数量= *(UCHAR*)(包指针 + 18);
+				/*Pack.怪物数量 = *(UCHAR*)(包指针 + 18);
 				if (Pack.怪物数量 == 48)
 				{
 					Pack.怪物数量 = 0;
 				}
-				for (Pack.收包计次 = 0; Pack.收包计次 <Pack.怪物数量 ; Pack.收包计次++)
+				for (Pack.收包计次 = 0; Pack.收包计次 < Pack.怪物数量; Pack.收包计次++)
 				{
 					ULONG64 temp = 读长整数(包指针 + 20);
 					if (temp > INT_MAX || temp < INT_MIN)
@@ -107,7 +109,7 @@ void 收包事件()
 
 void 全屏遍历()
 {
-	神话公告(L"城镇大区域ID：" + to_wstring(读整数型(基址::城镇大区域)) + L"   城镇小区域ID：" + to_wstring(读整数型(基址::城镇小区域))
+	公告(L"城镇大区域ID：" + to_wstring(读整数型(基址::城镇大区域)) + L"   城镇小区域ID：" + to_wstring(读整数型(基址::城镇小区域))
 		+ L"   城镇坐标X：" + to_wstring(读整数型(基址::城镇坐标X)) + L"   城镇坐标Y：" + to_wstring(读整数型(基址::城镇坐标Y)));
 }
 
@@ -130,14 +132,27 @@ LRESULT CALLBACK 热键消息(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			case VK_END://END键
 				自动线程();
 				break;
-			case VK_DELETE:
-				倍攻();
-				break;
 			case VK_F1:
-				跟随BOSS();
+				倍攻();
+				钩子();
 				break;
 			case VK_F2:
-
+				跟随BOSS();
+				break;
+			case VK_F3:
+				//全屏遍历();
+				公告(to_wstring(次数Call(9505)));
+				break;
+			case VK_F4:
+				Buff_Call(55);
+				Buff_Call(127);
+				Buff_Call(164);
+				Buff_Call(1013);
+				Buff_Call(1035);
+				Buff_Call(1102);
+				break;
+			case VK_DELETE:
+				组包回城();
 				break;
 			}
 		}
@@ -152,7 +167,11 @@ bool 初始化游戏句柄()
 	{
 		写出配置();
 	}
-	神话公告(L"  初始化成功" + 取现行时间());
+	公告(L"  初始化成功" + 取现行时间());
+	公告(L"F1 伤害");
+	公告(L"F2  BOSS");
+	公告(L"F3 城镇");
+	公告(L"F4 钩子");
 	return true;
 }
 
@@ -167,13 +186,21 @@ void 自动线程()
 {
 	if (!自动开关)
 	{
+		if (读配置(L"刷图模式", L"剧情升级") == 1 || 读配置(L"刷图模式", L"活动升级") == 1)
+		{
+			SetTimer(Pack.游戏句柄, 200, 100, (TIMERPROC)热键事件);
+		}
 		SetTimer(Pack.游戏句柄, 1, 500, (TIMERPROC)自动循环);
-		神话公告(L"自动开关 -- ON ");
+		公告(L"自动开关 -- ON ");
 	}
 	else
 	{
+		if (读配置(L"刷图模式", L"剧情升级") == 1 || 读配置(L"刷图模式", L"活动升级") == 1)
+		{
+			KillTimer(Pack.游戏句柄, 200);
+		}
 		KillTimer(Pack.游戏句柄, 1);
-		神话公告(L"自动开关 -- OFF ");
+		公告(L"自动开关 -- OFF ");
 	}
 	自动开关 = !自动开关;
 }
@@ -189,6 +216,7 @@ void 自动循环()
 		return;
 	}
 	自动循环变量 = !自动循环变量;
+	公告(boolToWString(自动循环变量));
 	switch (取游戏状态())
 	{
 	case 0://选择角色
@@ -297,23 +325,4 @@ void 写出配置()
 	写配置(L"操作模式", L"模拟操作", L"0	此项=1活动升级=0不处理  此项不可和其余两项同时开启");
 }
 
-bool 倍攻开关;
 
-void 倍攻()
-{
-	static vector<byte> 还原 = 读字节集(基址::独家伤害, 6);
-
-	if (!倍攻开关)
-	{
-		vector<byte> oldBytes = { 199, 2 };
-		vector<byte> newBytes = 到字节集(5201314, 4);
-		vector<byte> Bytes = _AppendToBytes(oldBytes, newBytes);
-		写字节集(基址::独家伤害, Bytes);
-	}
-	else
-	{
-		写字节集(基址::独家伤害, 还原);
-	}
-
-	倍攻开关 = !倍攻开关;
-}

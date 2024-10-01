@@ -13,3 +13,7 @@ bool BOSS死亡();
 bool 是否有物品();
 
 bool 文件是否存在(const wchar_t* 文件名);
+
+int 取角色等级();
+
+int 剩余疲劳();

@@ -6,6 +6,7 @@ extern bool 自动循环变量;
 
 
 
+
 void 收包入口();
 
 void 收包事件();
@@ -23,8 +24,6 @@ void 自动循环();
 int 思南背包遍历(int 内容);
 
 void 写出配置();
-
-void 倍攻();
 
 struct 坐标型
 {

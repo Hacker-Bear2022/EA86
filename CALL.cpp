@@ -17,7 +17,7 @@ ULONG64 EA8_CALL(ULONGLONG ADDR__, ULONGLONG RCX__, ULONGLONG RDX__, ULONGLONG R
 		R15__);
 }
 
-void 神话公告(std::wstring 内容, int 类型)
+void 公告(std::wstring 内容, int 类型)
 {
 	LPCWSTR TempStr;
 	内容 = L"EA8:" + 内容 + L" ";
@@ -408,4 +408,16 @@ void 选择角色Call(__int32 角色位置)
 	进入角色Call(角色位置);
 }
 
+void Buff_Call(int buff标识)
+{
+	INT64 特效空白地址[300] = { NULL };
+	EA8_CALL(基址::特效缓冲CALL, (INT64)&特效空白地址 + 8, 1);
+	EA8_CALL(基址::特效缓冲CALL, (INT64)&特效空白地址 + 8, 2);
+	EA8_CALL(基址::BUFF参数2, EA8_CALL(基址::特效释放CALL), EA8_CALL(基址::BUFF参数1, 读长整数(基址::特效基址), buff标识, (INT64)&特效空白地址));
+}
+
+int 次数Call(int 地图编号)
+{
+	return EA8_CALL(基址::次数CALL, 基址::次数_RCX, 地图编号);
+}
 
