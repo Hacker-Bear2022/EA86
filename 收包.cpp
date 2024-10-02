@@ -9,6 +9,7 @@ static bool 初始化;
 bool 自动开关;
 int 门票位置;
 bool 自动循环变量 = false;
+static int 通关次数;
 
 void 收包入口()
 {
@@ -63,13 +64,14 @@ void 收包事件()
 			Pack.领主坐标.x = *(char*)(包指针 + 24);
 			Pack.领主坐标.y = *(char*)(包指针 + 25);
 			Pack.地图名称 = (wchar_t*)*(__int64*)(地图Call(Pack.地图编号) + 基址::地图名称);
-			公告(L"地图编号：" + to_wstring(Pack.地图编号) + L"  地图难度:  " + to_wstring(Pack.地图难度));
-			公告(L"领主坐标.x：" + to_wstring(Pack.领主坐标.x) + L"  领主坐标.y:  " + to_wstring(Pack.领主坐标.y));
+			//公告(L"地图编号：" + to_wstring(Pack.地图编号) + L"  地图难度:  " + to_wstring(Pack.地图难度));
+			//公告(L"领主坐标.x：" + to_wstring(Pack.领主坐标.x) + L"  领主坐标.y:  " + to_wstring(Pack.领主坐标.y));
 			break;
 		case 29:
 			Pack.当前坐标.x = *(char*)(包指针 + 16);
 			Pack.当前坐标.y = *(char*)(包指针 + 17);
-			公告(L"当前坐标.x：" + to_wstring(Pack.当前坐标.x) + L"  当前坐标.y:  " + to_wstring(Pack.当前坐标.y));
+			//公告(L"当前坐标.x：" + to_wstring(Pack.当前坐标.x) + L"  当前坐标.y:  " + to_wstring(Pack.当前坐标.y));
+			keybd_event(81, MapVirtualKey(81, 0), 0, 0);//按下
 			break;
 		case 38:
 			if (包长度 != 27)
@@ -99,6 +101,8 @@ void 收包事件()
 			break;
 		case 31:
 			Pack.BOSS死亡 = true;
+			通关次数++;
+			公告(L"通关次数 ：  " + to_wstring(通关次数));
 			break;
 		case 261:
 			Pack.翻牌奖励 = true;
@@ -180,9 +184,6 @@ void 处理评分数据()
 {
 	写长整数(读长整数(基址::评分基址) + 基址::评分偏移, 取随机数(501314, 601314));
 	透明call();
-	keybd_event(81, MapVirtualKey(81, 0), 0, 0);//按下
-	Sleep(100);
-	keybd_event(81, MapVirtualKey(81, 0), KEYEVENTF_KEYUP, 0);//松开
 }
 
 

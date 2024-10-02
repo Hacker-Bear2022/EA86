@@ -20,7 +20,7 @@ ULONG64 EA8_CALL(ULONGLONG ADDR__, ULONGLONG RCX__, ULONGLONG RDX__, ULONGLONG R
 void 公告(std::wstring 内容, int 类型)
 {
 	LPCWSTR TempStr;
-	内容 = L"EA8:" + 内容 + L" ";
+	内容 = L"EA86:" + 内容 + L" ";
 	TempStr = 内容.c_str();
 	ULONG64 公告数组[100] = { NULL };
 	*(ULONG64*)((ULONG64)公告数组 + 8) = (ULONG64)TempStr;

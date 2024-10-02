@@ -273,6 +273,8 @@ void 按键处理()//X键
 	if (!是否开门())
 	{
 		keybd_event(88, MapVirtualKey(88, 0), 0, 0);//按下
+		Sleep(10);
+		keybd_event(88, MapVirtualKey(88, 0), KEYEVENTF_KEYUP, 0);//松开
 	}
 	else
 	{

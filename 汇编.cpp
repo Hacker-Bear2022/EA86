@@ -154,14 +154,14 @@ int 提取数字并转换(const std::wstring& str)
 
 int 读配置(wstring 节名称 ,wstring 项名称)
 {
-	wstring 文件路径 = 桌面路径() + L"\\" + L"false.ini";
+	wstring 文件路径 = 桌面路径() + L"\\" + L"Path.ini";
 	自动循环变量 = false;
 	return GetPrivateProfileIntW(节名称.c_str(), 项名称.c_str(), 0, 文件路径.c_str());
 }
 
 void 写配置(wstring 节名称 ,wstring 项名称, wstring 数据)
 {
-	wstring 文件路径 = 桌面路径() + L"\\" + L"false.ini";
+	wstring 文件路径 = 桌面路径() + L"\\" + L"Path.ini";
 	WritePrivateProfileStringW(节名称.c_str(), 项名称.c_str(), 数据.c_str(), 文件路径.c_str());
 }
 
