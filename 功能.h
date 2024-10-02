@@ -80,4 +80,8 @@ int 获取地图编号(ULONG64 角色等级);
 
 MapInfo 获取地图信息(ULONG64 地图编号);
 
-void 热键事件();
+void 对话框处理();
+
+void 按键处理();
+
+void 拾取遍历();

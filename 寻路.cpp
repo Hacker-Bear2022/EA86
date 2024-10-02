@@ -1,6 +1,5 @@
 #include"dllmain.h"
 
-
 int 地图_整理坐标型(vector<坐标型 > map_way_array, vector<坐标型 >& real_map_way)
 {
 	int x, y;
@@ -312,7 +311,7 @@ int 顺图方向()
 	return 0;
 }
 
-
+//0左1右2上3下
 /*------------------------------未央全图寻路----------------------------------------------------*/
 
 static int 顺图变量;
@@ -320,75 +319,141 @@ static int 顺图变量;
 
 int 未央全图()
 {
-	if (寻找文本(Pack.地图名称, L"残月宫阙") != 0)
+	if (寻找文本(Pack.地图名称, L"残月宫阙") != -1)
 	{
-		if (提取数字并转换(Pack.地图名称) <= 5) return 残月宫阙1至5阶();
+		公告(L"残月宫阙");
+		if (提取数字并转换(Pack.地图名称) <= 5)
+		{
+			公告(L"残月宫阙1至5阶");
+			return 残月宫阙1至5阶();
+		}
 
-		if (提取数字并转换(Pack.地图名称) <= 10) return 残月宫阙6至10阶();
+		if (提取数字并转换(Pack.地图名称) <= 10)
+		{
+			公告(L"残月宫阙6至10阶");
+			return 残月宫阙6至10阶();
+		}
 
-		if (提取数字并转换(Pack.地图名称) > 10) return 0;
+		if (提取数字并转换(Pack.地图名称) > 10)
+		{
+			return 0;
+		}
 
 	}
-	if (寻找文本(Pack.地图名称, L"沧池竹林") != 0)
+	if (寻找文本(Pack.地图名称, L"沧池竹林") != -1)
 	{
-		if (提取数字并转换(Pack.地图名称) <= 5) return 沧池竹林1至5阶();
+		公告(L"沧池竹林");
+		if (提取数字并转换(Pack.地图名称) <= 5)
+		{
+			公告(L"沧池竹林1至5阶");
+			return 沧池竹林1至5阶();
+		}
 
-		if (提取数字并转换(Pack.地图名称) <= 10) return 沧池竹林6至10阶();
+		if (提取数字并转换(Pack.地图名称) <= 10)
+		{
+			公告(L"沧池竹林6至10阶");
+			return 沧池竹林6至10阶();
+		}
 
-		if (提取数字并转换(Pack.地图名称) > 10) return 0;
+		if (提取数字并转换(Pack.地图名称) > 10)
+		{
+			return 0;
+		}
 
 	}
-	if (寻找文本(Pack.地图名称, L"幻境前殿") != 0)
+	if (寻找文本(Pack.地图名称, L"幻境前殿") != -1)
 	{
-		if (提取数字并转换(Pack.地图名称) <= 5) return 幻境前殿1至5阶();
+		公告(L"幻境前殿");
+		if (提取数字并转换(Pack.地图名称) <= 5)
+		{
+			公告(L"幻境前殿1至5阶");
+			return 幻境前殿1至5阶();
+		}
 
-		if (提取数字并转换(Pack.地图名称) <= 10)return 幻境前殿6至10阶();
+		if (提取数字并转换(Pack.地图名称) <= 10)
+		{
+			公告(L"幻境前殿6至10阶");
+			return 幻境前殿6至10阶();
+		}
 
-		if (提取数字并转换(Pack.地图名称) > 10) return 0;
+		if (提取数字并转换(Pack.地图名称) > 10)
+		{
+			return 0;
+		}
 
 	}
-	if (寻找文本(Pack.地图名称, L"未央之脊") != 0)
+	if (寻找文本(Pack.地图名称, L"未央之脊") != -1)
 	{
-		if (提取数字并转换(Pack.地图名称) <= 5) return 未央之脊1至5阶();
+		公告(L"未央之脊");
+		if (提取数字并转换(Pack.地图名称) <= 5)
+		{
+			公告(L"未央之脊1至5阶");
+			return 未央之脊1至5阶();
+		}
 
-		if (提取数字并转换(Pack.地图名称) <= 10)return 未央之脊6至10阶();
+		if (提取数字并转换(Pack.地图名称) <= 10)
+		{
+			公告(L"未央之脊6至10阶");
+			return 未央之脊6至10阶();
+		}
 
-		if (提取数字并转换(Pack.地图名称) > 10) return 0;
+		if (提取数字并转换(Pack.地图名称) > 10)
+		{
+			return 0;
+		}
 
 	}
-	公告(L"数据暂无匹配，请联系销售处理");
-	return 顺图方向();
+	//公告(L"数据暂无匹配，请联系销售处理");
+	//return 顺图方向();
 }
-
+//0左1右2上3下
 int 残月宫阙1至5阶()
 {
 	switch (Pack.当前坐标.x)
 	{
 	case 0:
-		if (Pack.当前坐标.y == 1)
+		if (Pack.当前坐标.y == 1)//正确
 		{
 			顺图变量 = 1;
-			return 1; // 右
+			return 1; 
 		}
 	case 1:
-		if (Pack.当前坐标.y == 0) return 1; // 右
-		if (Pack.当前坐标.y == 1 && 顺图变量 == 1) return 3; // 下
-		if (Pack.当前坐标.y == 2)
+		if (Pack.当前坐标.y == 1 && 顺图变量 == 1)//正确
+		{
+			return 3;
+		}
+		if (Pack.当前坐标.y == 2)//正确
 		{
 			顺图变量 = 2;
-			return 2; // 上
+			return 2; 
 		}
-		if (Pack.当前坐标.y == 1 && 顺图变量 == 2) return 1; // 右
-		if (Pack.当前坐标.y == 1 && 顺图变量 == 3) return 2; // 上
+		if (Pack.当前坐标.y == 1 && 顺图变量 == 2)//正确
+		{
+			return 1; 
+		}
+		if (Pack.当前坐标.y == 1 && 顺图变量 == 3)//正确
+		{
+			return 2;
+		}
+		if (Pack.当前坐标.y == 0)//正确
+		{
+			return 1;
+		}
 	case 2:
-		if (Pack.当前坐标.y == 0) return 1; // 右
-		if (Pack.当前坐标.y == 1)
+		if (Pack.当前坐标.y == 1)//正确
 		{
 			顺图变量 = 3;
-			return 0; // 左
+			return 0;
+		}
+		if (Pack.当前坐标.y == 0)//正确
+		{
+			return 1;
 		}
 	case 3:
-		if (Pack.当前坐标.y == 0) return 3; // 下
+		if (Pack.当前坐标.y == 0)//正确
+		{
+			return 3;
+		}
 	}
 	// 如果没有匹配的条件，可以返回一个默认值或抛出异常
 	throw std::runtime_error("Invalid coordinates or state encountered.");
@@ -396,29 +461,50 @@ int 残月宫阙1至5阶()
 
 int 沧池竹林1至5阶()
 {
-	switch (Pack.当前坐标.x) {
+	switch (Pack.当前坐标.x) 
+	{
 	case 0:
-		if (Pack.当前坐标.y == 1) return 1; // 右
-	case 1:
-		if (Pack.当前坐标.y == 1) return 2; // 上
-		if (Pack.当前坐标.y == 0) return 1; // 右
-	case 2:
-		if (Pack.当前坐标.y == 0) return 3; // 下
-		if (Pack.当前坐标.y == 1 && 顺图变量 == 1) return 1; // 右
-		if (Pack.当前坐标.y == 1) return 3; // 下
-		if (Pack.当前坐标.y == 2)
+		if (Pack.当前坐标.y == 1)
 		{
 			顺图变量 = 1;
+			return 1; // 正确
+		}
+	case 1:
+		if (Pack.当前坐标.y == 1)
+		{
+			return 2; // 上
+		}
+		if (Pack.当前坐标.y == 0)
+		{
+			return 1; // 右
+		}
+	case 2:
+		if (Pack.当前坐标.y == 0)
+		{
+			return 3; // 下
+		}
+		if (Pack.当前坐标.y == 1 && 顺图变量 == 2)
+		{
+			return 1; // 右
+		}
+		if (Pack.当前坐标.y == 1 && 顺图变量 == 1)
+		{
+			return 3; // 下
+		}
+		if (Pack.当前坐标.y == 2)
+		{
+			顺图变量 = 2;
 			return 2; // 上
 		}
 	}
 	// 如果没有匹配的条件，可以返回一个默认值或抛出异常
 	throw std::runtime_error("Invalid coordinates or state encountered.");
 }
-
+//正确能跑
 int 幻境前殿1至5阶()
 {
-	switch (Pack.当前坐标.x) {
+	switch (Pack.当前坐标.x) 
+	{
 	case 0:
 		if (Pack.当前坐标.y == 1)
 		{
@@ -463,20 +549,36 @@ int 未央之脊1至5阶()
 	switch (Pack.当前坐标.x)
 	{
 	case 0:
-		if (Pack.当前坐标.y == 1) 顺图变量 = 1; return 1; // 右
+		if (Pack.当前坐标.y == 1)
+		{
+			顺图变量 = 1; 
+			return 1; // 右
+		}
 		break;
 	case 1:
-		if (Pack.当前坐标.y == 1) return 1; // 右
+		if (Pack.当前坐标.y == 1)
+		{
+			return 1; // 右
+		}
 	case 2:
-		if (Pack.当前坐标.y == 1) return 1; // 右
+		if (Pack.当前坐标.y == 1)
+		{
+			return 1; // 右
+		}
 	case 3:
-		if (Pack.当前坐标.y == 1 && 顺图变量 == 1) return 2; // 上
+		if (Pack.当前坐标.y == 1 && 顺图变量 == 1)
+		{
+			return 2; // 上
+		}
 		if (Pack.当前坐标.y == 0)
 		{
 			顺图变量 = 2;
 			return 3; // 下
 		}
-		if (Pack.当前坐标.y == 1 && 顺图变量 == 2) return 1; // 右
+		if (Pack.当前坐标.y == 1 && 顺图变量 == 2)
+		{
+			return 1; // 右
+		}
 	}
 	// 如果没有匹配的条件，可以返回一个默认值或抛出异常
 	throw std::runtime_error("Invalid coordinates or state encountered.");

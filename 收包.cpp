@@ -134,16 +134,14 @@ LRESULT CALLBACK 热键消息(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 				break;
 			case VK_F1:
 				倍攻();
-				钩子();
 				break;
 			case VK_F2:
-				跟随BOSS();
+				//跟随BOSS();
+				钩子();
 				break;
 			case VK_F3:
 				//全屏遍历();
-				公告(to_wstring(次数Call(9505)));
-				break;
-			case VK_F4:
+				//钩子();
 				Buff_Call(55);
 				Buff_Call(127);
 				Buff_Call(164);
@@ -151,8 +149,11 @@ LRESULT CALLBACK 热键消息(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 				Buff_Call(1035);
 				Buff_Call(1102);
 				break;
+			case VK_F4:
+				
+				break;
 			case VK_DELETE:
-				组包回城();
+				//组包回城();
 				break;
 			}
 		}
@@ -169,9 +170,9 @@ bool 初始化游戏句柄()
 	}
 	公告(L"  初始化成功" + 取现行时间());
 	公告(L"F1 伤害");
-	公告(L"F2  BOSS");
-	公告(L"F3 城镇");
-	公告(L"F4 钩子");
+	公告(L"F2 全屏");
+	公告(L"F3 BUFF");
+	公告(L"End 自动");
 	return true;
 }
 
@@ -179,6 +180,9 @@ void 处理评分数据()
 {
 	写长整数(读长整数(基址::评分基址) + 基址::评分偏移, 取随机数(501314, 601314));
 	透明call();
+	keybd_event(81, MapVirtualKey(81, 0), 0, 0);//按下
+	Sleep(100);
+	keybd_event(81, MapVirtualKey(81, 0), KEYEVENTF_KEYUP, 0);//松开
 }
 
 
@@ -188,9 +192,10 @@ void 自动线程()
 	{
 		if (读配置(L"刷图模式", L"剧情升级") == 1 || 读配置(L"刷图模式", L"活动升级") == 1)
 		{
-			SetTimer(Pack.游戏句柄, 200, 100, (TIMERPROC)热键事件);
+			SetTimer(Pack.游戏句柄, 200, 10, (TIMERPROC)对话框处理);
 		}
 		SetTimer(Pack.游戏句柄, 1, 500, (TIMERPROC)自动循环);
+		SetTimer(Pack.游戏句柄, 300, 50, (TIMERPROC)按键处理);
 		公告(L"自动开关 -- ON ");
 	}
 	else
@@ -200,6 +205,7 @@ void 自动线程()
 			KillTimer(Pack.游戏句柄, 200);
 		}
 		KillTimer(Pack.游戏句柄, 1);
+		KillTimer(Pack.游戏句柄, 300);
 		公告(L"自动开关 -- OFF ");
 	}
 	自动开关 = !自动开关;
@@ -216,7 +222,6 @@ void 自动循环()
 		return;
 	}
 	自动循环变量 = !自动循环变量;
-	公告(boolToWString(自动循环变量));
 	switch (取游戏状态())
 	{
 	case 0://选择角色
@@ -323,6 +328,9 @@ void 写出配置()
 	写配置(L"刷图模式", L"活动升级", L"0	此项=1活动升级=0不处理  此项不可和其余两项同时开启");
 	写配置(L"操作模式", L"发包操作", L"1	此项=1活动升级=0不处理  此项不可和其余两项同时开启");
 	写配置(L"操作模式", L"模拟操作", L"0	此项=1活动升级=0不处理  此项不可和其余两项同时开启");
+	写配置(L"装备获取", L"获取装备", L"1	此项=1下两项方可生效，否则不生效");
+	写配置(L"装备获取", L"直接拾取", L"1	此项=1为装备坐标拾取=0不处理此项不可和下一项同时开启");
+	写配置(L"装备获取", L"直接入包", L"0	此项=1为装备直接入保=0不处理此项不可和上一项同时开启");
 }
 
 

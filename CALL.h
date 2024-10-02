@@ -94,3 +94,5 @@ void 选择角色Call(__int32 角色位置);
 void Buff_Call(int buff标识);
 
 int 次数Call(int 地图编号);
+
+void 空入Call(ULONG64 物品指针);

@@ -157,7 +157,8 @@
     <PostBuildEvent>
       <Command>D:\upx.exe -1 -f $(targetpath)
 echo Compile time: %TIME% &gt; $(IntDir)compile_time.txt
-type $(IntDir)compile_time.txt</Command>
+type $(IntDir)compile_time.txt
+del "$(OutDir)*.lastcodeanalysissucceeded"</Command>
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>

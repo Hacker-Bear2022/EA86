@@ -64,11 +64,13 @@ namespace 基址
 	constexpr auto 进图CALL = 0x1460D7B80;    // 5470256000   创新中心获取
 	constexpr auto 选图CALL = 0x146093D20;    // 5469977888   创新中心获取
 	constexpr auto 坐标CALL = 0x144F37600;    // 5451773440   创新中心获取
+	constexpr auto 空入CALL = 0x144E9C940;    // 5451139392   创新中心获取 
 	constexpr auto 角色翻页CALL = 0x1406937E0;    // 5375604704   创新中心获取
 	constexpr auto 选择角色CALL = 0x140690520;    // 5375591712   创新中心获取
 	constexpr auto 城镇瞬移CALL = 0x14609BAE0;    // 5470010080   创新中心获取
 	constexpr auto 取坐标CALL = 0x0001E0;    // 480   创新中心获取 
 	constexpr auto 角色基址 = 0x14C415D10;    // 5574319376   创新中心获取 
+	constexpr auto 自动捡物 = 0x1451727CF;    // 5454112719   创新中心获取  
 	constexpr auto 任务基址 = 0x14C4161D0;    // 5574320592   创新中心获取
 	constexpr auto 角色等级 = 0x14C3FADF0;    // 5574209008   创新中心获取
 	constexpr auto 区域参数 = 0x14CD925D0;    // 5584266704   创新中心获取 
@@ -109,6 +111,8 @@ namespace 基址
 	constexpr auto 区域偏移 = 0x0CE3A8;    // 844712   创新中心获取
 	constexpr auto 角色初始指针 = 0x0001D8;    // 472   创新中心获取
 	constexpr auto 名称偏移 = 0x000B10;    // 2832   创新中心获取
+	constexpr auto 代码偏移 = 0x000B08;    // 2824   创新中心获取  
+
 }
 
 

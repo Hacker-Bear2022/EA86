@@ -81,12 +81,18 @@ void 分解Call(ULONG64 物品指针)
 	EA8_CALL(基址::分解CALL, 读长整数(物品指针), 65535, 317);//317自身分解机  319系统分解机
 }
 
+int 司南添加;
+
 void 添加司南(int 司南_参)
 {
 	ULONGLONG 触发指针 = EA8_CALL(基址::打开界面CALL, 读长整数(基址::商店基址));
 	EA8_CALL(基址::司南添加CALL, 触发指针, 司南_参);
-	Sleep(200);
-	司南入场(司南_参);
+	司南添加++;
+	if (司南添加 >= 2)
+	{
+		司南入场(司南_参);
+		司南添加 = 0;
+	}
 }
 
 void 司南入场(int 司南_参)
@@ -230,8 +236,8 @@ void 组包过图(int 房间横轴, int 房间纵轴)
 	Send_缓冲Call(45);
 	Send_加密Call(房间横轴, 1);
 	Send_加密Call(房间纵轴, 1);
-	Send_加密Call(1465, 4);
-	Send_加密Call(214, 4);
+	Send_加密Call(0, 4);
+	Send_加密Call(0, 4);
 	Send_加密Call(0, 1);
 	Send_加密Call(35812, 2);
 	Send_加密Call(7, 2);
@@ -421,3 +427,7 @@ int 次数Call(int 地图编号)
 	return EA8_CALL(基址::次数CALL, 基址::次数_RCX, 地图编号);
 }
 
+void 空入Call(ULONG64 物品指针)
+{
+	EA8_CALL(基址::空入CALL, 读长整数(基址::背包基址), 物品指针);
+}
