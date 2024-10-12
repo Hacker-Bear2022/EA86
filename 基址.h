@@ -8,6 +8,7 @@ namespace 基址
 	constexpr auto 独家收包 = 0x144DC40FF;    // 5450252543   创新中心获取  
 	constexpr auto 商店基址 = 0x14C4160E0;    // 5574320352   创新中心获取  
 	constexpr auto 收包Call = 0x144DC40F0;    // 5450252528   创新中心获取  
+	constexpr auto 收包跳转 = 0x144DC5D2B;    // 5450259755   创新中心获取 
 	constexpr auto 神话CALL = 0x14498F160;    // 5445841248   创新中心获取
 	constexpr auto 透明CALL = 0x146135170;    // 5470638448   创新中心获取
 	constexpr auto 地图CALL = 0x1446C4380;    // 5442913152   创新中心获取
@@ -18,6 +19,7 @@ namespace 基址
 	constexpr auto 发包基址 = 0x14CD93450;    // 5584270416   创新中心获取 
 	constexpr auto 对话基址 = 0x14C24BC58;    // 5572443224   创新中心获取  
 	constexpr auto 对话基址B = 0x14CD8CF78;    // 5584244600   创新中心获取
+	constexpr auto 玉荣背包 = 0x14C416138;    // 5574320440   创新中心获取
 	constexpr auto 打开界面CALL = 0x145A09E70;    // 5463121520   创新中心获取
 	constexpr auto 评分基址 = 0x14C414D80;    // 5574315392   创新中心获取
 	constexpr auto 城镇大区域 = 0x14C3D14BC;    // 5574038716   创新中心获取  
@@ -68,8 +70,10 @@ namespace 基址
 	constexpr auto 角色翻页CALL = 0x1406937E0;    // 5375604704   创新中心获取
 	constexpr auto 选择角色CALL = 0x140690520;    // 5375591712   创新中心获取
 	constexpr auto 城镇瞬移CALL = 0x14609BAE0;    // 5470010080   创新中心获取
+	constexpr auto 动作CALL = 0x14502E800;    // 5452785664   创新中心获取
 	constexpr auto 取坐标CALL = 0x0001E0;    // 480   创新中心获取 
 	constexpr auto 角色基址 = 0x14C415D10;    // 5574319376   创新中心获取 
+	constexpr auto 数据处理_申请 = 0x1461EE4B0;    // 5471397040   创新中心获取
 	constexpr auto 自动捡物 = 0x1451727CF;    // 5454112719   创新中心获取  
 	constexpr auto 任务基址 = 0x14C4161D0;    // 5574320592   创新中心获取
 	constexpr auto 角色等级 = 0x14C3FADF0;    // 5574209008   创新中心获取
@@ -112,6 +116,14 @@ namespace 基址
 	constexpr auto 角色初始指针 = 0x0001D8;    // 472   创新中心获取
 	constexpr auto 名称偏移 = 0x000B10;    // 2832   创新中心获取
 	constexpr auto 代码偏移 = 0x000B08;    // 2824   创新中心获取  
+	constexpr auto 玉荣栏偏移 = 0x000320;         // 心悦基址 
+	constexpr auto 玉荣力偏移 = 0x000668;    // 1640   创新中心获取
+	constexpr auto 词条ID_edx = 0x0006B6;    // 1718   创新中心获取
+	constexpr auto 词条首 = 0x0005F0;    // 1520   创新中心获取  
+	constexpr auto 词条尾 = 0x0005F8;    // 1528   创新中心获取  
+	constexpr auto 词条间隔 = 0x0000E0;    // 224   创新中心获取
+	constexpr auto 当前角色位置 = 0x000390;    // 912   创新中心获取  
+	constexpr auto 角色总数偏移 = 0x000614;    // 1556   创新中心获取  
 
 }
 

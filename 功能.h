@@ -85,3 +85,11 @@ void 对话框处理();
 void 按键处理();
 
 void 拾取遍历();
+
+void 地图遍历();
+
+void 跟随未央柱子();
+
+void ReleaseMemory();
+
+void 自用对话框();//ESC键和空格键

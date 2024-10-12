@@ -1,15 +1,17 @@
 #pragma once
 
 extern int 门票位置;
-
-extern bool 自动循环变量;
-
+extern int 交易司南;
+extern bool 未央开关;
+extern bool 剧情开关;
+extern bool 活动开关;
+extern bool 自用开关;
 
 
 
 void 收包入口();
 
-void 收包事件();
+void 收包事件(INT64 _包指针);
 
 LRESULT CALLBACK 热键消息(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
@@ -17,13 +19,29 @@ bool 初始化游戏句柄();
 
 void 处理评分数据();
 
-void 自动线程();
-
-void 自动循环();
-
-int 思南背包遍历(int 内容);
+int 思南背包遍历(int 内容, int 开始阶段, int 结束阶段);
 
 void 写出配置();
+
+void 自动未央();
+
+void 未央线程();
+
+void 自动剧情();
+
+void 剧情线程();
+
+void 活动角色();
+
+void 活动线程();
+
+void 全局消息处理();
+
+void 自用线程();
+
+void 自用刷图();
+
+
 
 struct 坐标型
 {
@@ -129,3 +147,121 @@ struct 地图节点
 };
 
 extern 地图节点 地图节点坐标;
+
+struct 消息返回
+{
+	int 选图;
+	int 进图;
+	int 翻牌;
+	int 回城;
+	int 过图;
+	int 跟随;
+	int 攻击;
+	int 拾取;
+	int 添加司南;
+	int 司南入场;
+	消息返回() :
+		选图(0),
+		进图(0),
+		翻牌(0),
+		回城(0),
+		过图(0),
+		跟随(0),
+		攻击(0),
+		拾取(0),
+		添加司南(0),
+		司南入场(0)
+	{}
+};
+
+extern 消息返回 全局;
+
+struct 遍历结构
+{
+	ULONG64 人物指针;
+	ULONG64 首部指针;
+	ULONG64 尾部指针;
+	ULONG64 遍历数量;
+	ULONG64 遍历指针;
+	ULONG64 物品指针;
+	int 遍历类型;
+	int 遍历阵营;
+	int 遍历代码;
+	ULONG64 怪物血量;
+	wstring 怪物名称;
+	遍历结构() :
+		人物指针(0),
+		首部指针(0),
+		尾部指针(0),
+		遍历数量(0),
+		遍历指针(0),
+		物品指针(0),
+		遍历类型(0),
+		遍历阵营(0),
+		遍历代码(0),
+		怪物血量(0),
+		怪物名称(L"")
+	{}
+};
+
+extern 遍历结构 遍历;
+
+struct BOSS结构
+{
+	ULONG64 人物指针;
+	ULONG64 首部指针;
+	ULONG64 尾部指针;
+	ULONG64 遍历数量;
+	ULONG64 遍历指针;
+	ULONG64 物品指针;
+	int 遍历类型;
+	int 遍历阵营;
+	int 遍历代码;
+	ULONG64 怪物血量;
+	wstring 怪物名称;
+	BOSS结构() :
+		人物指针(0),
+		首部指针(0),
+		尾部指针(0),
+		遍历数量(0),
+		遍历指针(0),
+		物品指针(0),
+		遍历类型(0),
+		遍历阵营(0),
+		遍历代码(0),
+		怪物血量(0),
+		怪物名称(L"")
+	{}
+};
+
+extern BOSS结构 BOSS;
+
+struct 拾取结构
+{
+	ULONG64 人物指针;
+	ULONG64 首部指针;
+	ULONG64 尾部指针;
+	ULONG64 遍历数量;
+	ULONG64 遍历指针;
+	ULONG64 物品指针;
+	int 遍历类型;
+	int 遍历阵营;
+	int 遍历代码;
+	ULONG64 怪物血量;
+	wstring 怪物名称;
+	拾取结构() :
+		人物指针(0),
+		首部指针(0),
+		尾部指针(0),
+		遍历数量(0),
+		遍历指针(0),
+		物品指针(0),
+		遍历类型(0),
+		遍历阵营(0),
+		遍历代码(0),
+		怪物血量(0),
+		怪物名称(L"")
+	{}
+};
+
+extern 拾取结构 拾取;

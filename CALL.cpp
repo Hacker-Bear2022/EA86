@@ -19,6 +19,7 @@ ULONG64 EA8_CALL(ULONGLONG ADDR__, ULONGLONG RCX__, ULONGLONG RDX__, ULONGLONG R
 
 void 公告(std::wstring 内容, int 类型)
 {
+	
 	LPCWSTR TempStr;
 	内容 = L"EA86:" + 内容 + L" ";
 	TempStr = 内容.c_str();
@@ -38,6 +39,7 @@ void 公告(std::wstring 内容, int 类型)
 	*(ULONG64*)((ULONG64)公告数组 + 108) = 55512;//颜色B
 	EA8_CALL(基址::神话CALL, (ULONG64)公告数组);
 }
+
 
 void 透明call()
 {
@@ -73,35 +75,23 @@ void 拍卖上架CALL(int 上架金额)
 void 添加Call(ULONG64 物品指针, int 物品地址)
 {
 
-	EA8_CALL(基址::一键分解添加, 物品指针, 物品地址, 317);//317自身分解机  319系统分解机
+	EA8_CALL(基址::一键分解添加, 物品指针, 物品地址, 319);//317自身分解机  319系统分解机
 }
 
 void 分解Call(ULONG64 物品指针)
 {
-	EA8_CALL(基址::分解CALL, 读长整数(物品指针), 65535, 317);//317自身分解机  319系统分解机
+	EA8_CALL(基址::分解CALL, 读长整数(物品指针), 65535, 319);//317自身分解机  319系统分解机
 }
-
-int 司南添加;
 
 void 添加司南(int 司南_参)
 {
 	ULONGLONG 触发指针 = EA8_CALL(基址::打开界面CALL, 读长整数(基址::商店基址));
 	EA8_CALL(基址::司南添加CALL, 触发指针, 司南_参);
-	司南添加++;
-	if (司南添加 >= 2)
-	{
-		司南入场(司南_参);
-		司南添加 = 0;
-	}
 }
 
 void 司南入场(int 司南_参)
 {
 	EA8_CALL(基址::司南进图CALL, 读长整数(基址::司南进图_Rcx), 司南_参);
-	if (基址::门票判断 + 基址::门票判断偏移 == 3)
-	{
-		
-	}
 }
 
 void 翻牌Call()
@@ -109,19 +99,16 @@ void 翻牌Call()
 	EA8_CALL(基址::翻牌CALL_1, *(__int64*)基址::回城参数);
 	EA8_CALL(基址::翻牌CALL_2, *(__int64*)基址::回城参数, 0, rand() % 5);
 	EA8_CALL(基址::快速翻牌CALL, *(__int64*)基址::回城参数);
-	自动循环变量 = false;
 }
 
 void 选图Call()
 {
 	EA8_CALL(基址::选图CALL, *(__int64*)基址::角色指针);
-	自动循环变量 = false;
 }
 
 void 回城Call(__int32 回城位置)//0再次 1其他 2回城
 {
 	EA8_CALL(基址::回城CALL, *(__int64*)基址::回城参数, 回城位置, 1, 1);
-	自动循环变量 = false;
 }
 
 void 拾取Call(ULONG64 物品指针)
@@ -163,14 +150,47 @@ void 组包选图()
 	Send_缓冲Call(15);
 	Send_加密Call(0, 4);
 	Send_发包Call();
-	自动循环变量 = false;
+}
+
+void 组包分解(int 位置)
+{
+	Send_缓冲Call(26);
+	Send_加密Call(0, 1);
+	Send_加密Call(65535, 2);
+	Send_加密Call(317, 4);
+	Send_加密Call(1, 1);
+	Send_加密Call(static_cast<__int64>(位置) + 9, 2);
+	Send_发包Call();
+}
+
+void 组包卖物(int 位置)
+{
+	Send_缓冲Call(22);
+	Send_加密Call(317, 4);
+	Send_加密Call(95, 4);
+	Send_加密Call(420609, 1);
+	Send_加密Call(0, 1);
+	Send_加密Call(static_cast<__int64>(位置) + 9, 2);
+	Send_加密Call(1, 4);
+	Send_加密Call(static_cast<__int64>(位置) * 2 + 21, 4);
+	Send_发包Call();
+}
+
+void 特殊分解(int 位置)
+{
+	Send_缓冲Call(26);
+	Send_加密Call(47, 1);
+	Send_加密Call(65535, 2);
+	Send_加密Call(317, 4);
+	Send_加密Call(1, 1);
+	Send_加密Call(位置, 2);
+	Send_发包Call();
 }
 
 void 组包卡界面()
 {
 	Send_缓冲Call(132);
 	Send_发包Call();
-	自动循环变量 = false;
 }
 
 int 标识Call()
@@ -228,7 +248,6 @@ void 组包回城()
 {
 	Send_缓冲Call(42);
 	Send_发包Call();
-	自动循环变量 = false;
 }
 
 void 组包过图(int 房间横轴, int 房间纵轴)
@@ -239,8 +258,8 @@ void 组包过图(int 房间横轴, int 房间纵轴)
 	Send_加密Call(0, 4);
 	Send_加密Call(0, 4);
 	Send_加密Call(0, 1);
-	Send_加密Call(35812, 2);
-	Send_加密Call(7, 2);
+	Send_加密Call(0, 2);
+	Send_加密Call(0, 2);
 	Send_加密Call(0, 2);
 	Send_加密Call(0, 2);
 	Send_加密Call(0, 2);
@@ -256,21 +275,21 @@ void 组包过图(int 房间横轴, int 房间纵轴)
 	Send_加密Call(0, 4);
 	Send_加密Call(0, 4);
 	Send_加密Call(0, 4);
-	Send_加密Call(247, 2);
-	Send_加密Call(30, 2);
 	Send_加密Call(0, 2);
 	Send_加密Call(0, 2);
-	Send_加密Call(30, 2);
-	Send_加密Call(11, 2);
 	Send_加密Call(0, 2);
+	Send_加密Call(0, 2);
+	Send_加密Call(30,2 );
+	Send_加密Call(0, 2);
+	Send_加密Call(5, 2);
 	Send_加密Call(0, 4);
-	Send_加密Call(30, 2);
-	Send_加密Call(41, 2);
+	Send_加密Call(28, 2);
+	Send_加密Call(35, 2);
 	Send_加密Call(3, 2);
-	Send_加密Call(250184, 8);
-	Send_加密Call(24189, 4);
+	Send_加密Call(185362, 8);
+	Send_加密Call(127984, 4);
 	Send_加密Call(0, 2);
-	Send_加密Call(0, 1);
+	Send_加密Call(1, 1);
 	Send_发包Call();
 }
 
@@ -279,22 +298,18 @@ void 组包强顺(int 过图方向)
 	if (过图方向 == 0)
 	{
 		组包过图(Pack.当前坐标.x - 1, Pack.当前坐标.y);
-		自动循环变量 = false;
 	}
 	if (过图方向 == 1)
 	{
 		组包过图(Pack.当前坐标.x + 1, Pack.当前坐标.y);
-		自动循环变量 = false;
 	}
 	if (过图方向 == 2)
 	{
 		组包过图(Pack.当前坐标.x, Pack.当前坐标.y - 1);
-		自动循环变量 = false;
 	}
 	if (过图方向 == 3)
 	{
 		组包过图(Pack.当前坐标.x, Pack.当前坐标.y + 1);
-		自动循环变量 = false;
 	}
 }
 
@@ -422,12 +437,56 @@ void Buff_Call(int buff标识)
 	EA8_CALL(基址::BUFF参数2, EA8_CALL(基址::特效释放CALL), EA8_CALL(基址::BUFF参数1, 读长整数(基址::特效基址), buff标识, (INT64)&特效空白地址));
 }
 
-int 次数Call(int 地图编号)
-{
-	return EA8_CALL(基址::次数CALL, 基址::次数_RCX, 地图编号);
-}
-
 void 空入Call(ULONG64 物品指针)
 {
 	EA8_CALL(基址::空入CALL, 读长整数(基址::背包基址), 物品指针);
+}
+
+wstring 词条Call(DWORD64 门票指针) 
+{
+	DWORD64 指针 = EA8_CALL(基址::打开界面CALL, 读长整数(基址::商店基址), 基址::词条ID_edx, 门票指针);
+	DWORD64 首 = 读长整数(指针 + 基址::词条首);
+	DWORD64 尾 = 读长整数(指针 + 基址::词条尾);
+	DWORD64 次数 = (DWORD64)(尾 - 首) / 基址::词条间隔;
+
+	wstring 词条数据;
+
+	for (int i = 1; i < 次数; i++)
+	{
+		DWORD64 指针 = 读长整数(首 + (static_cast<__int64>(i) - 1) * 基址::词条间隔 + 32);
+		if (指针 > 0 && 指针 < 9999999999)
+		{
+			wchar_t* 临时文本 = (wchar_t*)指针;
+			词条数据 += 临时文本;
+			词条数据 += L"|";
+		}
+	}
+
+	return 词条数据;
+
+}
+
+void 攻击Call()
+{
+	if (取游戏状态() != 3)
+	{
+		return;
+	}
+	ULONG64 空白地址[100] = { NULL };
+	ULONG64 攻击状态 = 攻击效验(4);
+	*(ULONG64*)((ULONG64)空白地址 + 8) = 攻击状态;
+	*(ULONG64*)(攻击状态) = 0;
+	*(ULONG64*)((ULONG64)空白地址 + 16) = 攻击状态 + 4;
+	*(ULONG64*)((ULONG64)空白地址 + 24) = 攻击状态 + 4;
+	获取攻击(8, (ULONG64)空白地址);
+}
+
+void 获取攻击(int 动作id, ULONG64 空白)
+{
+	EA8_CALL(基址::动作CALL, 读长整数(基址::人物基址B), 动作id, 空白, 1);
+}
+
+ULONG64 攻击效验(int 参数)
+{
+	return EA8_CALL(基址::数据处理_申请, 参数);
 }

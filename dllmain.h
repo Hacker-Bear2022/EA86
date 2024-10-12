@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+
+
 #define WIN32_LEAN_AND_MEAN             // 从 Windows 头文件中排除极少使用的内容
 // Windows 头文件
 #include <windows.h>
@@ -17,13 +19,23 @@
 #include <chrono>
 #include <ctime>
 #include <thread>
+#include <future>
 #include <atomic>
 #include <functional>
+#include <psapi.h>
+#include <tlhelp32.h>
+#include <sstream>
+
+
+
+
 
 
 #define ByteArr vector<byte>
 
 using namespace std;
+typedef vector<unsigned char> Bytes;
+
 
 
 #include <codecvt>

@@ -55,6 +55,12 @@ void Send_发包Call();
 
 void 组包选图();
 
+void 组包分解(int 位置);
+
+void 特殊分解(int 位置);
+
+void 组包卖物(int 位置);
+
 void 组包卡界面();
 
 void 组包拾取(INT 物品编号);
@@ -93,6 +99,12 @@ void 选择角色Call(__int32 角色位置);
 
 void Buff_Call(int buff标识);
 
-int 次数Call(int 地图编号);
-
 void 空入Call(ULONG64 物品指针);
+
+wstring 词条Call(DWORD64 门票指针);
+
+void 攻击Call();
+
+void 获取攻击(int 动作id, ULONG64 空白);
+
+ULONG64 攻击效验(int 参数);

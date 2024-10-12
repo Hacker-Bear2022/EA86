@@ -155,7 +155,6 @@ int 提取数字并转换(const std::wstring& str)
 int 读配置(wstring 节名称 ,wstring 项名称)
 {
 	wstring 文件路径 = 桌面路径() + L"\\" + L"Path.ini";
-	自动循环变量 = false;
 	return GetPrivateProfileIntW(节名称.c_str(), 项名称.c_str(), 0, 文件路径.c_str());
 }
 
@@ -165,7 +164,34 @@ void 写配置(wstring 节名称 ,wstring 项名称, wstring 数据)
 	WritePrivateProfileStringW(节名称.c_str(), 项名称.c_str(), 数据.c_str(), 文件路径.c_str());
 }
 
-std::wstring 桌面路径()
+wstring 读配置文本(wstring 节名称,wstring 项名称)
+{
+	wstring 文件路径 = 桌面路径() + L"\\" + L"Path.ini";
+	wchar_t 缓冲区[4096];
+	GetPrivateProfileStringW(节名称.c_str(), 项名称.c_str(), L"", 缓冲区, 4096, 文件路径.c_str());
+	return 缓冲区;
+}
+
+vector<std::wstring> 解析子字符串(const std::wstring& 文本) 
+{
+	std::vector<std::wstring> 子字符串列表;
+	size_t pos = 0;
+	size_t found;
+
+	while ((found = 文本.find(L'|', pos)) != std::wstring::npos) {
+		子字符串列表.push_back(文本.substr(pos, found - pos));
+		pos = found + 1;
+	}
+
+	// 添加最后一个子字符串
+	if (pos < 文本.length()) {
+		子字符串列表.push_back(文本.substr(pos));
+	}
+
+	return 子字符串列表;
+}
+
+wstring 桌面路径()
 {
 	LPWSTR path[255];
 	ZeroMemory(path, 255);
@@ -189,7 +215,7 @@ int 寻找文本(const std::wstring& 欲查找的文本, const std::wstring& 文本)
 	}
 }
 
-std::wstring 取现行时间() 
+wstring 取现行时间() 
 {
 	// 获取当前时间点
 	auto now = std::chrono::system_clock::now();
@@ -227,7 +253,7 @@ void 写整数型(ULONG64 参_内存地址, DWORD 参_写入数据)
 	}
 }
 
-std::vector<byte> 读字节集(ULONG64 memAddress, DWORD length)
+vector<byte> 读字节集(ULONG64 memAddress, DWORD length)
 {
 	std::vector<byte> result;
 	if (IsBadReadPtr(reinterpret_cast<VOID*>(memAddress), length))
@@ -256,4 +282,47 @@ ByteArr _AppendToBytes(ByteArr oldBytes, ByteArr newBytes)
 		bytes.push_back(newBytes[i - (DWORD)1]);
 	}
 	return bytes;
+}
+
+ULONG_PTR 创建内存(SIZE_T 内存大小)
+{
+	return (ULONG_PTR)VirtualAlloc(NULL, 内存大小, MEM_COMMIT, PAGE_EXECUTE_READWRITE);
+}
+
+vector<BYTE> Ansi转Unicode(const std::string& str)
+{
+	// 计算所需的缓冲区大小
+	int wideCharCount = MultiByteToWideChar(CP_ACP, 0, str.c_str(), -1, NULL, 0);
+	if (wideCharCount == 0)
+	{
+		// 处理错误
+		throw std::runtime_error("MultiByteToWideChar failed to calculate buffer size");
+	}
+
+	// 分配宽字符缓冲区
+	std::vector<wchar_t> wideString(wideCharCount + 1); // +1 用于 null 终止符
+	int result = MultiByteToWideChar(CP_ACP, 0, str.c_str(), -1, wideString.data(), wideCharCount);
+	if (result == 0)
+	{
+		// 处理转换失败
+		throw std::runtime_error("MultiByteToWideChar failed to convert string");
+	}
+
+	// 确保字符串以 null 结尾
+	wideString[wideCharCount] = L'\0';
+
+	// 将 wchar_t 转换为 BYTE 并存储在 std::vector<BYTE> 中
+	std::vector<BYTE> ret;
+	for (size_t i = 0; i < wideString.size(); ++i)
+	{
+		ret.push_back((BYTE)(wideString[i] & 0xFF));
+		ret.push_back((BYTE)((wideString[i] >> 8) & 0xFF));
+	}
+
+	return ret;
+}
+
+wstring boolToWString(bool value)
+{
+	return value ? L"true" : L"false";
 }
