@@ -476,9 +476,9 @@ void 活动线程()
 		break;
 		case 1:
 		{
-			std::unique_ptr<std::thread> 自用城镇(new std::thread(自用城镇处理));
-			if (自用城镇->joinable()) {
-				自用城镇->join(); // 等待未央城镇处理完成
+			std::unique_ptr<std::thread> 活动城镇(new std::thread(活动城镇处理));
+			if (活动城镇->joinable()) {
+				活动城镇->join(); // 等待未央城镇处理完成
 			}
 		}
 		break;
@@ -553,6 +553,11 @@ void 全局消息处理()
 		拾取遍历();
 		全局.拾取 = 0;
 	}
+	if (全局.拾取 == 2)
+	{
+		自用拾取();
+		全局.拾取 = 0;
+	}
 	if (全局.添加司南 == 1)
 	{
 		添加司南(门票位置);
@@ -609,7 +614,6 @@ void 自用线程()
 	while (!自用开关)
 	{
 		ReleaseMemory();
-		Sleep(1000);
 		std::unique_ptr<std::thread> 对话任务(new std::thread(自用对话框));
 		if (对话任务->joinable()) {
 			对话任务->join(); // 等待选择角色任务完成

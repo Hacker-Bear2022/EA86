@@ -93,3 +93,5 @@ void 跟随未央柱子();
 void ReleaseMemory();
 
 void 自用对话框();//ESC键和空格键
+
+void 自用拾取();
