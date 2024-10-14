@@ -71,7 +71,7 @@ void 收包事件(INT64 _包指针)
 			Pack.领主坐标.x = *(char*)(包指针 + 24);
 			Pack.领主坐标.y = *(char*)(包指针 + 25);
 			Pack.地图名称 = (wchar_t*)*(__int64*)(地图Call(Pack.地图编号) + 基址::地图名称);
-			//公告(L"地图编号：" + to_wstring(Pack.地图编号) + L"  地图难度:  " + to_wstring(Pack.地图难度));
+			公告(L"地图名称：" + Pack.地图名称 + L"地图编号：" + to_wstring(Pack.地图编号) + L"  地图难度:  " + to_wstring(Pack.地图难度));
 			//公告(L"领主坐标.x：" + to_wstring(Pack.领主坐标.x) + L"  领主坐标.y:  " + to_wstring(Pack.领主坐标.y));
 			break;
 		case 29:
@@ -111,7 +111,7 @@ void 收包事件(INT64 _包指针)
 		case 31:
 			Pack.BOSS死亡 = true;
 			通关次数++;
-			公告(L"通关次数 ：  " + to_wstring(通关次数));
+			//公告(L"通关次数 ：  " + to_wstring(通关次数));
 			break;
 		case 261:
 			Pack.翻牌奖励 = true;
@@ -181,7 +181,6 @@ LRESULT CALLBACK 热键消息(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 				自用刷图();
 				break;
 			case VK_DELETE:
-
 				break;
 			}
 		}
